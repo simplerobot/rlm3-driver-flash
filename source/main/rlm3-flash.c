@@ -52,7 +52,7 @@ static bool FlashWritePage(uint32_t flash_address, const uint8_t* data, size_t s
 	message[0] = (uint8_t)flash_address;
 	memcpy(message + 1, data, size);
 
-	uint8_t block_addr = 0x50 | (uint8_t)(flash_address >> 8);
+	uint8_t block_addr = RLM3_FLASH_I2C_ADDRESS | (uint8_t)(flash_address >> 8);
 	bool result = RLM3_I2C1_Transmit(block_addr, message, 1 + size);
 
 	vTaskDelay(1 + pdMS_TO_TICKS(RLM3_FLASH_MAX_WRITE_CYCLE_TIME_MS));
