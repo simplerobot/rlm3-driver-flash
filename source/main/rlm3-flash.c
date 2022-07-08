@@ -7,6 +7,9 @@
 #include "task.h"
 
 
+// Driver for Microchip 24LC16BT
+
+
 LOGGER_ZONE(FLASH);
 
 
@@ -34,7 +37,7 @@ extern bool RLM3_Flash_IsInit()
 
 static bool FlashWritePage(uint32_t flash_address, const uint8_t* data, size_t size)
 {
-	LOG_TRACE("PAGE 0x%x %d", (int)flash_address, size);
+	LOG_TRACE("PAGE 0x%x %d", (int)flash_address, (int)size);
 
 	// Make sure this is a valid address.
 	ASSERT(flash_address < RLM3_FLASH_SIZE);
@@ -59,7 +62,7 @@ static bool FlashWritePage(uint32_t flash_address, const uint8_t* data, size_t s
 
 extern bool RLM3_Flash_Write(uint32_t flash_address, const uint8_t* data, size_t size)
 {
-	LOG_TRACE("WRITE 0x%x %d", (int)flash_address, size);
+	LOG_TRACE("WRITE 0x%x %d", (int)flash_address, (int)size);
 
 	if (!RLM3_Flash_IsInit())
 		return false;
@@ -86,7 +89,7 @@ extern bool RLM3_Flash_Write(uint32_t flash_address, const uint8_t* data, size_t
 
 extern bool RLM3_Flash_Read(uint32_t flash_address, uint8_t* data, size_t size)
 {
-	LOG_TRACE("READ 0x%x %d", (int)flash_address, size);
+	LOG_TRACE("READ 0x%x %d", (int)flash_address, (int)size);
 
 	if (!RLM3_Flash_IsInit())
 		return false;
