@@ -1,10 +1,9 @@
 #include "Test.hpp"
 #include "rlm3-flash.h"
 #include "rlm3-i2c.h"
+#include "rlm3-task.h"
 #include "Mock.hpp"
 #include <random>
-#include "FreeRTOS.h"
-#include "task.h"
 
 
 TEST_CASE(Flash_Init_HappyCase)
@@ -45,7 +44,7 @@ TEST_CASE(Flash_Write_HappyCase)
 		for (size_t j = 0; j < 16; j++)
 			block[1 + j] = data[i + j];
 		EXPECT(RLM3_I2C1_Transmit(0x50 | (i >> 8), block, 17))_AND_RETURN(true);
-		EXPECT(vTaskDelay(6));
+		EXPECT(RLM3_Delay(5));
 	}
 
 	ASSERT(RLM3_Flash_Write(0, data, RLM3_FLASH_SIZE));
@@ -72,7 +71,7 @@ TEST_CASE(Flash_Write_Failure)
 	for (size_t j = 0; j < 16; j++)
 		block[1 + j] = data[j];
 	EXPECT(RLM3_I2C1_Transmit(0x50, block, 17))_AND_RETURN(false);
-	EXPECT(vTaskDelay(6));
+	EXPECT(RLM3_Delay(5));
 
 	ASSERT(!RLM3_Flash_Write(0, data, RLM3_FLASH_SIZE));
 }
@@ -122,17 +121,17 @@ TEST_CASE(Flash_Write_PartialBlocks)
 	for (size_t j = 0; j < 9; j++)
 		block[1 + j] = data[7 + j];
 	EXPECT(RLM3_I2C1_Transmit(0x50, block, 10))_AND_RETURN(true);
-	EXPECT(vTaskDelay(6));
+	EXPECT(RLM3_Delay(5));
 	block[0] = 16;
 	for (size_t j = 0; j < 16; j++)
 		block[1 + j] = data[16 + j];
 	EXPECT(RLM3_I2C1_Transmit(0x50, block, 17))_AND_RETURN(true);
-	EXPECT(vTaskDelay(6));
+	EXPECT(RLM3_Delay(5));
 	block[0] = 32;
 	for (size_t j = 0; j < 5; j++)
 		block[1 + j] = data[32 + j];
 	EXPECT(RLM3_I2C1_Transmit(0x50, block, 6))_AND_RETURN(true);
-	EXPECT(vTaskDelay(6));
+	EXPECT(RLM3_Delay(5));
 
 	ASSERT(RLM3_Flash_Write(7, data + 7, 9 + 16 + 5));
 }

@@ -1,10 +1,9 @@
 #include "rlm3-flash.h"
 #include "rlm3-i2c.h"
+#include "rlm3-task.h"
 #include "Assert.h"
 #include <string.h>
 #include "logger.h"
-#include "FreeRTOS.h"
-#include "task.h"
 
 
 // Driver for Microchip 24LC16BT
@@ -55,7 +54,7 @@ static bool FlashWritePage(uint32_t flash_address, const uint8_t* data, size_t s
 	uint8_t block_addr = RLM3_FLASH_I2C_ADDRESS | (uint8_t)(flash_address >> 8);
 	bool result = RLM3_I2C1_Transmit(block_addr, message, 1 + size);
 
-	vTaskDelay(1 + pdMS_TO_TICKS(RLM3_FLASH_MAX_WRITE_CYCLE_TIME_MS));
+	RLM3_Delay(RLM3_FLASH_MAX_WRITE_CYCLE_TIME_MS);
 
 	return result;
 }
