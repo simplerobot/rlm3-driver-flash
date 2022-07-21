@@ -2,7 +2,6 @@ GITHUB_DEPS += simplerobot/build-scripts
 GITHUB_DEPS += simplerobot/logger
 GITHUB_DEPS += simplerobot/test
 GITHUB_DEPS += simplerobot/test-stm32
-GITHUB_DEPS += simplerobot/mock
 GITHUB_DEPS += simplerobot/rlm3-hardware
 GITHUB_DEPS += simplerobot/rlm3-sim-base
 GITHUB_DEPS += simplerobot/rlm3-driver-base
