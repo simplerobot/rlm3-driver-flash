@@ -3,6 +3,7 @@ GITHUB_DEPS += simplerobot/logger
 GITHUB_DEPS += simplerobot/test
 GITHUB_DEPS += simplerobot/test-stm32
 GITHUB_DEPS += simplerobot/rlm3-hardware
+GITHUB_DEPS += simplerobot/rlm3-base
 GITHUB_DEPS += simplerobot/rlm3-driver-base
 GITHUB_DEPS += simplerobot/rlm3-driver-base-sim
 GITHUB_DEPS += simplerobot/hw-test-agent
@@ -38,7 +39,7 @@ CPU_TEST_SOURCE_FILES = $(notdir $(wildcard $(CPU_TEST_SOURCE_DIRS:%=%/*.c) $(CP
 CPU_TEST_O_FILES = $(addsuffix .o,$(basename $(CPU_TEST_SOURCE_FILES)))
 CPU_INCLUDES = $(CPU_TEST_SOURCE_DIRS:%=-I%)
 
-MCU_TEST_SOURCE_DIRS = $(MAIN_SOURCE_DIR) $(MCU_TEST_SOURCE_DIR) $(PKG_RLM3_HARDWARE_DIR) $(PKG_LOGGER_DIR) $(PKG_TEST_STM32_DIR) $(PKG_RLM3_DRIVER_BASE_DIR)
+MCU_TEST_SOURCE_DIRS = $(MAIN_SOURCE_DIR) $(PKG_LOGGER_DIR) $(MCU_TEST_SOURCE_DIR) $(PKG_RLM3_HARDWARE_DIR) $(PKG_RLM3_BASE_DIR) $(PKG_TEST_STM32_DIR) $(PKG_RLM3_DRIVER_BASE_DIR)
 MCU_TEST_SOURCE_FILES = $(notdir $(wildcard $(MCU_TEST_SOURCE_DIRS:%=%/*.c) $(MCU_TEST_SOURCE_DIRS:%=%/*.cpp) $(MCU_TEST_SOURCE_DIRS:%=%/*.s)))
 MCU_TEST_O_FILES = $(addsuffix .o,$(basename $(MCU_TEST_SOURCE_FILES)))
 MCU_TEST_LD_FILE = $(wildcard $(PKG_RLM3_HARDWARE_DIR)/*.ld)
